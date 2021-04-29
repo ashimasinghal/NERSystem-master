@@ -54,7 +54,7 @@ pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_160225
 PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1602326920180/work
 pytest==6.1.2
 python-dateutil==2.8.1
-PyYAML==5.3.1
+PyYAML==5.4
 regex==2020.10.28
 requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1592425495151/work
 s3transfer==0.3.3
