@@ -1,0 +1,119 @@
+import 'example.grm' as tk;
+import 'exclamation.grm' as exclamation;
+
+FIRST_NAMES = StringFile['chinesefirstnames.txt'];
+FIRST_NAMES_REWRITTEN = Optimize[FIRST_NAMES @ tk.TOKENIZER];
+FIRST_NAME = FIRST_NAMES_REWRITTEN;
+
+LAST_NAMES = StringFile['chineselastnames.txt'];
+LAST_NAMES_REWRITTEN = Optimize[LAST_NAMES @ tk.TOKENIZER];
+LAST_NAME = LAST_NAMES_REWRITTEN;
+
+SYMPTOMS= StringFile['symptom.txt'];
+SYMPTOM_REWRITTEN = Optimize[SYMPTOMS @ tk.TOKENIZER];
+SYMPTOM=  SYMPTOM_REWRITTEN;
+
+PLACES= StringFile['businesses_and_places.txt'];
+PLACE_REWRITTEN = Optimize[PLACES @ tk.TOKENIZER];
+PLACE= PLACE_REWRITTEN;
+
+DATES= StringFile['dates.txt'];
+DATE_REWRITTEN = Optimize[DATES @ tk.TOKENIZER];
+DATE= DATE_REWRITTEN;
+
+TIMES= StringFile['time.txt'];
+TIME_REWRITTEN = Optimize[TIMES @ tk.TOKENIZER];
+TIME= TIME_REWRITTEN;
+
+COUNTRIES= StringFile['countries.txt'];
+COUNTRY_REWRITTEN = Optimize[COUNTRIES @ tk.TOKENIZER];
+COUNTRY= COUNTRY_REWRITTEN;
+
+EXCLAMATION = exclamation.EXCLAMATION;
+
+export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
+												("Did you have "  SYMPTOM ) |
+												("Do you have any Covid symptoms like "  SYMPTOM " and " SYMPTOM ) |
+												("Are you sure you have "  SYMPTOM ) |
+												("I have "  SYMPTOM "and " SYMPTOM) |
+												("I have recently developed "  SYMPTOM ) |
+												("I have developed "  SYMPTOM ) |
+												("I developed "  SYMPTOM ) |
+												("I have come down with the symtom of "  SYMPTOM ) |
+												("I have come down with the symptoms of "  SYMPTOM " and " SYMPTOM ) |
+												("I am feeling sick because of "  SYMPTOM ) |
+												("I am worried because I recently developed "  SYMPTOM " and I think I might have Covid ") |
+												("Have you had "  SYMPTOM " since yesterday " ) |
+												("Have you had "  SYMPTOM "or " SYMPTOM " since yesterday " ) |
+												("I have been having "  SYMPTOM " since yesterday ") |
+												("I have been having "  SYMPTOM " since last night ") |
+												("I have been having "  SYMPTOM " for a few hours  ") |
+												("Have you had "  SYMPTOM " since this morning " ) |
+												("I have been having "  SYMPTOM " since this morning ") |
+												("Since when do you have "  SYMPTOM ) |
+												("Since when do you have "  SYMPTOM " and " SYMPTOM ) |
+												("When did you start having "  SYMPTOM ) |
+												("When did you develop "  SYMPTOM " and " SYMPTOM ) |
+												("When did you develop "  SYMPTOM ) |
+												("When did you have "  SYMPTOM ) |
+												("When did you start having "  SYMPTOM " and " SYMPTOM ) |
+												("How long have you been suffering from "  SYMPTOM ) |
+												("How long have you been suffering from "  SYMPTOM " and " SYMPTOM ) |
+												("Since last night, I've been down with "  SYMPTOM ) |
+												("Since yesterday, I've been down with "  SYMPTOM ) |
+												("I have had "  SYMPTOM " for the past few days ") |
+												("I have had "  SYMPTOM " for quite some time now ") |
+												("Is "  SYMPTOM " a symptom of Covid because I think I might be have it ") |
+												("I think I should get a Covid test done because I have a "  SYMPTOM ) |
+												("I think I should get a Covid test done because I have symptoms like  "  SYMPTOM " and " SYMPTOM) |
+												(EXCLAMATION " Can you recommend me a good doctor, I think I have " SYMPTOM ) |
+												(EXCLAMATION " Can you recommend me a good doctor, I have " SYMPTOM " and think that I might have Covid" ) |
+												("I have "  SYMPTOM " what are the chances that I actually have Covid ") |
+												("Have you contacted any doctor regarding your " SYMPTOM ) |
+												("Have you asked any doctor about your " SYMPTOM ) |
+												("I think I should contact a doctor because I have been having " SYMPTOM " for quite some time now ") |
+												("Have you met anyone since you started suffering from "  SYMPTOM ) |
+												("Have you met anyone since you started having "  SYMPTOM ) |
+												("Have you contacted anyone since you started suffering from "  SYMPTOM ) |
+												("Have you contacted anyone since you started having "  SYMPTOM ) |
+												("I am not meeting people right now ever since I got "  SYMPTOM " which might be indicative of Covid ") |
+												("I did not meet " FIRST_NAME LAST_NAME " yesterday because I have "  SYMPTOM " which might be indicative of Covid ") |
+												("Is your "  SYMPTOM " severe " ) |
+												("Is your "  SYMPTOM " really bad " ) |
+												("Yes I think I have severe "  SYMPTOM ) |
+												("Yes I think my "  SYMPTOM " is quite severe " ) |
+												("Yes I think my "  SYMPTOM " is very serious " ) |
+												("Which places did you visit last week ") |
+												("Which places did you come from last week ") |
+												("Where did you visit last week ") |
+												("Where did you come from last week ") |
+												("Which countries did you visit ") |
+												("Which country did you come from last week ") |
+												("Which country did you last visit ") |
+												("Which place did you visit ") |
+												("I went to "  PLACE ) |
+												("I went to "  COUNTRY ) |
+												("I had gone to "  PLACE ) |
+												("I had gone to "  COUNTRY ) |
+												("I had gone to "  PLACE ) |
+												("I had gone to "  COUNTRY ) |
+												("I have come from "  PLACE " last week ") |
+												("I have come from "  COUNTRY " last week ") |
+												("I have come from "  PLACE " last month ") |
+												("I have come from "  COUNTRY " last month ") |
+												("I went to "  PLACE " last week ") |
+												("I had gone to "  PLACE " yesterday ") |
+												("I went to "  COUNTRY " last week ") |
+												("I went to "  PLACE " last month ") |
+												("I went to "  COUNTRY " last month ") |
+												("I visited "  COUNTRY " on " DATE ) |
+												("I visited "  PLACE " on " DATE ) |
+												("I had visited "  COUNTRY " on " DATE " at " TIME) |
+												("I had visited "  PLACE " on " DATE " at " TIME) |
+												("I had visited "  COUNTRY " from " DATE " " TIME " to " DATE " " TIME ) |
+												("I had visited "  PLACE " from " DATE " " TIME " to " DATE " " TIME) |
+												("I was at "  COUNTRY " from " DATE " " TIME " to " DATE " " TIME ) |
+												("I was at "  PLACE  " from " DATE " " TIME " to " DATE " " TIME) |
+												("I came back from "  COUNTRY " on " DATE ) |
+												("I came back from "  PLACE " on " DATE ) |
+												("I flew back from "  COUNTRY " on " DATE );
