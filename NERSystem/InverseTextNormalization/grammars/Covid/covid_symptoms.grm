@@ -1,5 +1,6 @@
 import 'example.grm' as tk;
 import 'exclamation.grm' as exclamation;
+import 'numbers.grm' as numbers;
 
 FIRST_NAMES = StringFile['chinesefirstnames.txt'];
 FIRST_NAMES_REWRITTEN = Optimize[FIRST_NAMES @ tk.TOKENIZER];
@@ -31,10 +32,46 @@ COUNTRY= COUNTRY_REWRITTEN;
 
 EXCLAMATION = exclamation.EXCLAMATION;
 
+
+
+export numbers_to_999 = Optimize[numbers.numbers_to_100 | numbers.numbers_101_to_999_dig_by_dig];
+
+
+export BLOCK = ("Blk ": "block ") numbers_to_999;
+export BUILDING_NO = numbers_to_999;
+
+
+STREETS = StringFile['roads_and_streets.txt'];
+STREET_REWRITTEN = Optimize[STREETS @ tk.TOKENIZER];
+STREET_NAME = STREET_REWRITTEN;
+
+
+BUSINESS_NAME = StringFile['venues-filtered.txt'] ;
+BUSINESS_REWRITTEN = Optimize[BUSINESS_NAME @ tk.TOKENIZER];
+
+
+
+BUILDING_NAME = BUSINESS_REWRITTEN;
+UNIT_NO =("#" : "hash ") (("B" : "b ") | "") (numbers.units_with_zero | numbers.teens | ("20": "twenty")) (("-" : " " ) | ("-" : " dash " )) numbers.numbers_to_999;
+
+
+REGION = StringFile['regions.txt'] ;
+REGION_REWRITTEN = Optimize[REGION @ tk.TOKENIZER];
+
+
+POSTALCODE = (("S" : "s ") | ("S" : "singapore post code ") | ("" : ""))  (numbers.units_with_zero_trailing_spaces numbers.units_with_zero_trailing_spaces numbers.units_with_zero_trailing_spaces numbers.units_with_zero_trailing_spaces numbers.units_with_zero_trailing_spaces numbers.units_with_zero_trailing_spaces);
+
+
+
+
+
+
+
 export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												("Did you have "  SYMPTOM ) |
 												("Do you have any Covid symptoms like "  SYMPTOM " and " SYMPTOM ) |
 												("Are you sure you have "  SYMPTOM ) |
+												
 												("I have "  SYMPTOM "and " SYMPTOM) |
 												("I have recently developed "  SYMPTOM ) |
 												("I have developed "  SYMPTOM ) |
@@ -43,13 +80,17 @@ export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												("I have come down with the symptoms of "  SYMPTOM " and " SYMPTOM ) |
 												("I am feeling sick because of "  SYMPTOM ) |
 												("I am worried because I recently developed "  SYMPTOM " and I think I might have Covid ") |
+												
 												("Have you had "  SYMPTOM " since yesterday " ) |
 												("Have you had "  SYMPTOM "or " SYMPTOM " since yesterday " ) |
+												
 												("I have been having "  SYMPTOM " since yesterday ") |
 												("I have been having "  SYMPTOM " since last night ") |
 												("I have been having "  SYMPTOM " for a few hours  ") |
+												
 												("Have you had "  SYMPTOM " since this morning " ) |
 												("I have been having "  SYMPTOM " since this morning ") |
+												
 												("Since when do you have "  SYMPTOM ) |
 												("Since when do you have "  SYMPTOM " and " SYMPTOM ) |
 												("When did you start having "  SYMPTOM ) |
@@ -61,6 +102,7 @@ export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												("How long have you been suffering from "  SYMPTOM " and " SYMPTOM ) |
 												("Since last night, I've been down with "  SYMPTOM ) |
 												("Since yesterday, I've been down with "  SYMPTOM ) |
+												
 												("I have had "  SYMPTOM " for the past few days ") |
 												("I have had "  SYMPTOM " for quite some time now ") |
 												("Is "  SYMPTOM " a symptom of Covid because I think I might be have it ") |
@@ -69,20 +111,32 @@ export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												(EXCLAMATION " Can you recommend me a good doctor, I think I have " SYMPTOM ) |
 												(EXCLAMATION " Can you recommend me a good doctor, I have " SYMPTOM " and think that I might have Covid" ) |
 												("I have "  SYMPTOM " what are the chances that I actually have Covid ") |
+												
 												("Have you contacted any doctor regarding your " SYMPTOM ) |
 												("Have you asked any doctor about your " SYMPTOM ) |
+												
 												("I think I should contact a doctor because I have been having " SYMPTOM " for quite some time now ") |
+												
 												("Have you met anyone since you started suffering from "  SYMPTOM ) |
 												("Have you met anyone since you started having "  SYMPTOM ) |
 												("Have you contacted anyone since you started suffering from "  SYMPTOM ) |
 												("Have you contacted anyone since you started having "  SYMPTOM ) |
+												
 												("I am not meeting people right now ever since I got "  SYMPTOM " which might be indicative of Covid ") |
 												("I did not meet " FIRST_NAME LAST_NAME " yesterday because I have "  SYMPTOM " which might be indicative of Covid ") |
 												("Is your "  SYMPTOM " severe " ) |
 												("Is your "  SYMPTOM " really bad " ) |
+												
 												("Yes I think I have severe "  SYMPTOM ) |
 												("Yes I think my "  SYMPTOM " is quite severe " ) |
 												("Yes I think my "  SYMPTOM " is very serious " ) |
+												
+
+
+
+
+
+
 												("Which places did you visit last week ") |
 												("Which places did you come from last week ") |
 												("Where did you visit last week ") |
@@ -91,29 +145,134 @@ export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												("Which country did you come from last week ") |
 												("Which country did you last visit ") |
 												("Which place did you visit ") |
+												
 												("I went to "  PLACE ) |
 												("I went to "  COUNTRY ) |
+												
 												("I had gone to "  PLACE ) |
 												("I had gone to "  COUNTRY ) |
-												("I had gone to "  PLACE ) |
-												("I had gone to "  COUNTRY ) |
+												
 												("I have come from "  PLACE " last week ") |
 												("I have come from "  COUNTRY " last week ") |
 												("I have come from "  PLACE " last month ") |
 												("I have come from "  COUNTRY " last month ") |
 												("I went to "  PLACE " last week ") |
 												("I had gone to "  PLACE " yesterday ") |
+												
 												("I went to "  COUNTRY " last week ") |
 												("I went to "  PLACE " last month ") |
 												("I went to "  COUNTRY " last month ") |
+												
 												("I visited "  COUNTRY " on " DATE ) |
 												("I visited "  PLACE " on " DATE ) |
+												
 												("I had visited "  COUNTRY " on " DATE " at " TIME) |
 												("I had visited "  PLACE " on " DATE " at " TIME) |
 												("I had visited "  COUNTRY " from " DATE " " TIME " to " DATE " " TIME ) |
 												("I had visited "  PLACE " from " DATE " " TIME " to " DATE " " TIME) |
+												
 												("I was at "  COUNTRY " from " DATE " " TIME " to " DATE " " TIME ) |
 												("I was at "  PLACE  " from " DATE " " TIME " to " DATE " " TIME) |
+												
 												("I came back from "  COUNTRY " on " DATE ) |
 												("I came back from "  PLACE " on " DATE ) |
-												("I flew back from "  COUNTRY " on " DATE );
+												("I flew back from "  COUNTRY " on " DATE ) |
+
+
+
+
+
+
+
+												("Which place did you visit last week ") |
+												("Which building did you visit last week ") |
+												("Where did you visit last week ") |
+												("Where did you come from last week ") |
+												("Which address did you visit ") |
+												("Which address did you come from ") |
+												("Which building did you visit ") |
+												("Which street did you visit ") |
+												("Which street did you come from ") |
+												("Which place did you visit ") |
+												
+												("I went to "  STREET_NAME ) |
+												("I went to "  REGION_REWRITTEN ) |
+												("I went to "  BUILDING_NAME ) |
+												("I went to "  BUSINESS_REWRITTEN ) |
+												
+												("I had gone to "  STREET_NAME ) |
+												("I had gone to "  REGION_REWRITTEN ) |
+												("I had gone to "  BUILDING_NAME ) |
+												("I had gone to "  BUSINESS_REWRITTEN ) |
+												
+												("I have come from "  STREET_NAME ) |
+												("I have come from "  REGION_REWRITTEN ) |
+												("I have come from "  BUILDING_NAME ) |
+												("I have come from "  BUSINESS_REWRITTEN ) |
+												
+												("I went to "  STREET_NAME " last week ") |
+												("I went to "  REGION_REWRITTEN " last week ") |
+												("I went to "  BUILDING_NAME " last week ") |
+												("I went to "  BUSINESS_REWRITTEN " last week ") |
+												
+												("I had gone to "  STREET_NAME " yesterday ") |
+												("I had gone to "  REGION_REWRITTEN " yesterday ") |
+												("I had gone to "  BUILDING_NAME " yesterday ") |
+												("I had gone to "  BUILDING_NAME " yesterday ") |
+												
+												("I went to "  STREET_NAME " last month ") |
+												("I went to "  REGION_REWRITTEN " last month ") |
+												("I went to "  BUILDING_NAME " last month ") |
+												("I went to "  BUSINESS_REWRITTEN " last month ") |
+												
+												("I visited "  STREET_NAME " on " DATE ) |
+												("I visited "  REGION_REWRITTEN " on " DATE ) |
+												("I visited "  BUILDING_NAME " on " DATE ) |
+												("I visited "  BUSINESS_REWRITTEN " on " DATE ) |
+												
+												("I had visited "  STREET_NAME " on " DATE " at " TIME) |
+												("I had visited "  REGION_REWRITTEN " on " DATE " at " TIME) |
+												("I had visited "  BUILDING_NAME " on " DATE " at " TIME) |
+												("I had visited "  BUSINESS_REWRITTEN " on " DATE " at " TIME) |
+												
+												("I had visited "  STREET_NAME " on " DATE " " TIME " and " DATE " " TIME ) |
+												("I had visited "  REGION_REWRITTEN " on " DATE " " TIME " and " DATE " " TIME) |
+												("I had visited "  BUILDING_NAME " on " DATE " " TIME " and " DATE " " TIME) |
+												("I had visited "  BUSINESS_REWRITTEN " on " DATE " " TIME " and " DATE " " TIME) |
+												
+												("I was at "  STREET_NAME " on " DATE " " TIME " and " DATE " " TIME ) |
+												("I was at "  REGION_REWRITTEN  " on " DATE " " TIME " and " DATE " " TIME) |
+												("I was at "  BUILDING_NAME  " on " DATE " " TIME " and " DATE " " TIME) |
+												("I was at "  BUSINESS_REWRITTEN  " on " DATE " " TIME " and " DATE " " TIME) |
+												
+												("What is your area of residence ") |
+												("Where do you stay ") |
+												("Where do you live ") |
+												("Where do you reside ") |
+												
+												("I live at " STREET_NAME " and my building number is " BUILDING_NO) |
+												("My building number is " BUILDING_NO " and my block is " BLOCK) |
+												("I live at " BUILDING_NAME) |
+												("I live in " REGION_REWRITTEN) |
+												
+												("I stay at " STREET_NAME) |
+												("I stay at " BUILDING_NAME) |
+												("I stay in " REGION_REWRITTEN) |
+												
+												("My area of residence is " STREET_NAME) |
+												("My area of residence is " BUILDING_NAME) |
+												("My area of residence is " REGION_REWRITTEN) |
+												
+												("Where is your area of work ") |
+												("Where do you work ") |
+												("Where is your office ") |
+												("Where is your place of work ") |
+												
+												("My area of work is " BUSINESS_REWRITTEN) |
+												("My place of work is " BUSINESS_REWRITTEN) |
+												("I work at " BUSINESS_REWRITTEN) |
+												("My office is at " BUSINESS_REWRITTEN);
+
+
+
+												
