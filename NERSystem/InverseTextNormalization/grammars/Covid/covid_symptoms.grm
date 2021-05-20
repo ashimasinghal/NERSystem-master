@@ -123,7 +123,7 @@ export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												("Have you contacted anyone since you started having "  SYMPTOM ) |
 												
 												("I am not meeting people right now ever since I got "  SYMPTOM " which might be indicative of Covid ") |
-												("I did not meet " FIRST_NAME LAST_NAME " yesterday because I have "  SYMPTOM " which might be indicative of Covid ") |
+												("I did not meet " FIRST_NAME " " LAST_NAME " yesterday because I have "  SYMPTOM " which might be indicative of Covid ") |
 												("Is your "  SYMPTOM " severe " ) |
 												("Is your "  SYMPTOM " really bad " ) |
 												
@@ -271,8 +271,37 @@ export SYMPTOMSENT =  ("Do you have "  SYMPTOM ) |
 												("My area of work is " BUSINESS_REWRITTEN) |
 												("My place of work is " BUSINESS_REWRITTEN) |
 												("I work at " BUSINESS_REWRITTEN) |
-												("My office is at " BUSINESS_REWRITTEN);
+												("My office is at " BUSINESS_REWRITTEN)
 
 
 
 												
+
+
+
+												("What were you doing") |
+												("What were you doing there") |
+												("What were you travelling ") |
+												("Why were you roaming outside your house")
+												("Why had you gone there") |
+
+												("I had gone to meet my parents") |
+												("I had gone to meet my cousins") |
+												("I had gone to meet my brother") |
+												("I had gone to meet my sister") |
+												("I had gone to meet my friends") |
+												("I had gone to meet my friend " FIRST_NAME " " LAST_NAME) |
+												("I had gone to see the doctor") |
+												("I went for a health checkup") |
+
+												("I had gone to the bank") |
+												("I had gone to withdraw some money from the ATM") |
+												("I had gone to work") |
+												("I had gone for some personal reason") |
+												("I had gone to deliver groceries to my parents' house") |
+												("I had gone to buy groceries") |
+												("I had gone to buy food") |
+												("I had gone to buy some house supplies") |
+												("I had gone out to get some medicine") |
+												("I had gone to get vaccinated") |
+												("I went to get the vaccine");
