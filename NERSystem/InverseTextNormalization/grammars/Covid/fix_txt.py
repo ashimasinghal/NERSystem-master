@@ -1,7 +1,10 @@
+import os
 import num2words
 import re
 
-crimefile = open('covid_symptom.txt', 'r')
+path  = os.path.dirname(os.path.abspath(__file__))
+
+crimefile = open(path+'/covid_symptom.txt', 'r')
 yourResult = [line.split('\n') for line in crimefile.readlines()]
 
 inList = []
@@ -12,10 +15,8 @@ for item in yourResult:
 		item[0] = re.sub(r"(\d+)", lambda x: num2words.num2words(int(x.group(0))), item[0])
 		inList.append(item[0])
 
-#print (inList)
-
 inList2 = [i for i in inList if i != "****************************************"]
 inList2 = list(set(inList2))
-with open("covid_symptom_cleaned.txt", 'w') as output:
+with open(path+"/covid_symptom_cleaned.txt", 'w') as output:
     for row in inList2:
         output.write(str(row) + '\n')
