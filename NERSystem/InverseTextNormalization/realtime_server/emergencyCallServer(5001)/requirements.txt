@@ -7,7 +7,7 @@ botocore==1.19.12
 brotlipy==0.7.0
 cached-property==1.5.2
 catalogue @ file:///home/conda/feedstock_root/build_artifacts/catalogue_1589276142674/work
-certifi==2020.6.20
+certifi==2022.12.7
 cffi==1.11.5
 chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1602255305250/work
 click==7.1.2
